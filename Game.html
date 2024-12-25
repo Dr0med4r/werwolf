@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Playing</h1>
+        <div>
+            {{if not .Moderator}}
+            <p>
+                you are a 
+                {{(index (.Game.Cards) (index (.Game.Players) (.Player)) ).Name}}
+            </p>
+            {{else}}
+                {{$cards := .Game.Cards}}
+                {{ range $key, $value := .Game.Players | }}
+                    <p>{{$key}} is a {{(index $cards $value).Name}}</p>
+                {{end}}
+            {{end}}
+            
+        </div>
+
+    </body>
+</html>
