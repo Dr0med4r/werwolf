@@ -56,6 +56,11 @@ func playHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusBadRequest)
 		return
 	}
+	if games[code].Players == nil || games[code].Cards == nil {
+		http.Redirect(w, r, fmt.Sprint("/game/?code=%i", code), http.StatusBadRequest)
+		return
+
+	}
 
 	name := r.URL.Query().Get("name")
 	moderator := r.URL.Query().Has("moderator")
@@ -100,7 +105,6 @@ func startHandler(w http.ResponseWriter, r *http.Request) {
 	game.Players = make(map[string]int)
 	games[code] = game
 	http.Redirect(w, r, fmt.Sprintf("/game?code=%d", code), http.StatusFound)
-
 }
 
 func cardHandler(w http.ResponseWriter, r *http.Request) {
