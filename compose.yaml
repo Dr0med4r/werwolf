@@ -1,0 +1,16 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: frontend.Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: backend.Dockerfile
+
